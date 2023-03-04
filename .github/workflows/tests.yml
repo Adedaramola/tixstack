@@ -14,17 +14,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.1"
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: none
 
       - name: Install Composer Dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
-
-      - name: Copy environment variables
-        run: cp .env.example .env
-
-      - name: Generate app key
-        run: php artisan key:generate
+        run: composer install --prefer-dist --no-interaction
 
       - name: Run Tests
         run: php artisan test

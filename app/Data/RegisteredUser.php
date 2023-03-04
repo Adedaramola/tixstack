@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data;
 
+use App\Contracts\DataObjectContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
