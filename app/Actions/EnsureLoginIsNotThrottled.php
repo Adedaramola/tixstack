@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Auth;
+namespace App\Actions;
 
 use App\RateLimiters\LoginRateLimiter;
 use Illuminate\Auth\Events\Lockout;
@@ -18,13 +18,13 @@ final class EnsureLoginIsNotThrottled
 
     public function handle($request, $next)
     {
-        if (!$this->limiter->tooManyAttempts($request)) {
+        if ( ! $this->limiter->tooManyAttempts($request)) {
             return $next($request);
         }
 
         event(new Lockout($request));
 
-        return with($this->limiter->availableIn($request), function ($seconds) {
+        return with($this->limiter->availableIn($request), function ($seconds): void {
             throw ValidationException::withMessages([
                 'email' => [
                     trans('auth.throttle', [

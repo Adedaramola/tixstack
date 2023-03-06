@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\API;
+namespace App\Actions;
 
 use App\Contracts\CreateEventContract;
 use App\Data\CreatedEvent;
@@ -17,7 +17,7 @@ final class CreateEventAction implements CreateEventContract
             fn (): Event => Event::query()->create(
                 attributes: [
                     ...$payload->toArray(),
-                    $user
+                    'user_id' => $user
                 ]
             )
         );

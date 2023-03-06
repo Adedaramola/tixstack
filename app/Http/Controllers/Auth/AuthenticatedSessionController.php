@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\Auth\AttemptToAuthenticate;
-use App\Actions\Auth\EnsureLoginIsNotThrottled;
-use App\Actions\Auth\PrepareAuthenticatedSession;
+use App\Actions\AttemptToAuthenticate;
+use App\Actions\EnsureLoginIsNotThrottled;
+use App\Actions\PrepareAuthenticatedSession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use Illuminate\Contracts\Auth\StatefulGuard;

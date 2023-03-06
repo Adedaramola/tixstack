@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -9,15 +11,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class Event extends Model
+final class Event extends Model
 {
     use HasFactory;
     use HasUlids;
 
     protected $fillable = [
+        'user_id',
         'slug',
         'name',
         'description',
+        'image_url',
         'location',
         'start_date',
         'start_time',

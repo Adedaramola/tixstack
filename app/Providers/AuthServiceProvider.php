@@ -4,27 +4,34 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Event;
+use App\Policies\EventPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 final class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array<class-string, class-string>
-     */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Event::class => EventPolicy::class,
     ];
 
-    /**
-     * Register any authentication / authorization services.
-     */
     public function boot(): void
     {
         $this->registerPolicies();
 
-        ResetPassword::createUrlUsing(fn (object $notifiable, string $token) => config('app.frontend_url')."/password-reset/{$token}?email={$notifiable->getEmailForPasswordReset()}");
+        ResetPassword::createUrlUsing(
+            function (object $notifiable, string $token) {
+                return config('app.frontend_url') . "/password-reset/{$token}?email={$notifiable->getEmailForPasswordReset()}";
+            }
+        );
+
+        Password::defaults(function (): Password {
+            $rule = Password::min(8);
+
+            return $this->app->environment('production')
+                ? $rule->mixedCase()->numbers()->uncompromised()
+                : $rule;
+        });
     }
 }

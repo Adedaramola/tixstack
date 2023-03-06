@@ -21,6 +21,8 @@ final class RegistrationTest extends TestCase
             'password' => 'password'
         ]);
 
+        $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
+
         $this->assertAuthenticated();
         $response->assertNoContent();
     }

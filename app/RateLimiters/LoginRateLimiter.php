@@ -42,6 +42,6 @@ final class LoginRateLimiter
 
     private function throttleKey(LoginUserRequest $request)
     {
-        return Str::transliterate(Str::lower($request->email) . '|' . $request->ip());
+        return Str::transliterate(Str::lower($request->email).'|'.$request->ip());
     }
 }

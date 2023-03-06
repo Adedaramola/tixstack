@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Auth;
+namespace App\Actions;
 
 use App\RateLimiters\LoginRateLimiter;
 
