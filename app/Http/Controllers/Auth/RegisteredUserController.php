@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 final class RegisteredUserController extends Controller
@@ -20,7 +23,12 @@ final class RegisteredUserController extends Controller
     ) {
     }
 
-    public function __invoke(RegisterUserRequest $request): Response
+    public function index(Request $request): View
+    {
+        return view('auth.register');
+    }
+
+    public function store(RegisterUserRequest $request): RedirectResponse
     {
         $user = $this->registrar->handle(
             payload: RegisteredUser::from($request)
@@ -30,6 +38,6 @@ final class RegisteredUserController extends Controller
 
         $this->authenticator->login($user);
 
-        return response()->noContent();
+        return redirect()->route('home');
     }
 }

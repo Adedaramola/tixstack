@@ -9,9 +9,11 @@ use App\Actions\EnsureLoginIsNotThrottled;
 use App\Actions\PrepareAuthenticatedSession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Routing\Pipeline as RoutingPipeline;
 
@@ -22,10 +24,15 @@ final class AuthenticatedSessionController extends Controller
     ) {
     }
 
-    public function store(LoginUserRequest $request): Response
+    public function index(Request $request): View
+    {
+        return view('auth.login');
+    }
+
+    public function store(LoginUserRequest $request): RedirectResponse
     {
         return $this->loginPipeline($request)->then(
-            fn ($request) => response()->noContent()
+            fn ($request) => redirect()->intended(RouteServiceProvider::HOME)
         );
     }
 
@@ -40,7 +47,7 @@ final class AuthenticatedSessionController extends Controller
         );
     }
 
-    public function destroy(Request $request): Response
+    public function destroy(Request $request): RedirectResponse
     {
         $this->authenticator->logout();
 
@@ -48,6 +55,6 @@ final class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->noContent();
+        return redirect('/');
     }
 }

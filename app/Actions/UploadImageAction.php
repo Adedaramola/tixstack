@@ -8,7 +8,7 @@ use Illuminate\Http\UploadedFile;
 
 final class UploadImageAction
 {
-    public function handle(UploadedFile $image)
+    public function handle(UploadedFile $image): void
     {
     }
 }
