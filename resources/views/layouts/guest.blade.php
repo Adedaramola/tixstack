@@ -17,14 +17,14 @@
 </head>
 
 <body class="font-sans antialiased text-gray-800">
-    <div class="min-h-screen flex flex-col items-center pt-20 pb-12">
+    <div class="min-h-screen flex flex-col items-center pt-16 pb-12">
         <div class="">
-            <a href="#" class="text-3xl text-[#9381FF]">
-                {{ __('ticketi.africa') }}
+            <a href="/" class="text-3xl text-orange-500">
+                {{ __('tixstack') }}
             </a>
         </div>
 
-        <main class="w-full sm:max-w-md mt-10">
+        <main class="w-full sm:max-w-md mt-5 px-6 py-4">
             {{ $slot }}
         </main>
     </div>

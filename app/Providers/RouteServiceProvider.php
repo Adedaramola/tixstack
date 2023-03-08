@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 final class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/events';
+    public const HOME = '/app/events';
 
     public function boot(): void
     {
